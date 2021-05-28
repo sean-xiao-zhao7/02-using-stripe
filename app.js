@@ -26,8 +26,8 @@ const store = new MongoDBStore({
     collection: "sessions",
 });
 const csrfProtection = csrf();
-const privateKey = fs.readFileSync("server.key");
-const sslCert = fs.readFileSync("server.crt");
+// const privateKey = fs.readFileSync("server.key");
+// const sslCert = fs.readFileSync("server.crt");
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -129,15 +129,7 @@ app.use((error, req, res, next) => {
 mongoose
     .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((_) => {
-        https
-            .createServer(
-                {
-                    key: privateKey,
-                    cert: sslCert,
-                },
-                app
-            )
-            .listen(process.env.APP_PORT || 3000);
+        app.listen(process.env.APP_PORT || 3000);
     })
     .catch((err) => {
         console.log(err);
