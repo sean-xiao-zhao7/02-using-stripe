@@ -18,7 +18,7 @@ const errorController = require("./controllers/error");
 const shopController = require("./controllers/shop");
 const isAuth = require("./middleware/is-auth");
 const User = require("./models/user");
-const MONGODB_URI = require("./secrets/mongodb");
+const MONGODB_URI = process.env.MONGODB_URI;//require("./secrets/mongodb");
 
 const app = express();
 const store = new MongoDBStore({
